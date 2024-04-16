@@ -1,2 +1,2 @@
 # Data-Science-Portfolio
-This repository holds many important projects which I have completed throughout my time at Washington and Lee University
+Welcome to my Data Science Portfolio! Here, you'll find some projects I've comepleted during my time at Washington and Lee University.
