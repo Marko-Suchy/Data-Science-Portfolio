@@ -1,6 +1,5 @@
 # Marko Suchy's Data Science Portfolio
-Welcome to my Data Science Portfolio! Here, you'll find projects I've comepleted during my time at Washington and Lee University. 
-
+Welcome to my Data Science Portfolio! Here, you'll find projects I've comepleted during my time at Washington and Lee University. Please start with reading the "My Modelling Education" essay, which describes how I've learned to collect data ethically, prepare and transform data, and interpert and communicate data.
 
 
 In each project folder, you'll find two subfolders, and a README.md file. Each README file contains a breif description of the project, along with the skills and techniques which the project emphasised, and ...
