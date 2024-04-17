@@ -1,0 +1,197 @@
+country 1,country 2,defense,neutrality,nonaggression,entente,asymmetric
+United Kingdom,Portugal,1.0,0.0,1.0,0.0,0.0
+United Kingdom,Netherlands,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Belgium,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Luxembourg,1.0,0.0,0.0,1.0,0.0
+United Kingdom,France,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Spain,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Portugal,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Italy,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Greece,1.0,0.0,0.0,1.0,0.0
+Netherlands,Belgium,1.0,0.0,0.0,1.0,0.0
+Netherlands,Luxembourg,1.0,0.0,0.0,1.0,0.0
+Netherlands,France,1.0,0.0,0.0,1.0,0.0
+Netherlands,Spain,1.0,0.0,0.0,1.0,0.0
+Netherlands,Portugal,1.0,0.0,0.0,1.0,0.0
+Netherlands,Italy,1.0,0.0,0.0,1.0,0.0
+Netherlands,Greece,1.0,0.0,0.0,1.0,0.0
+Belgium,Luxembourg,1.0,0.0,0.0,1.0,0.0
+Belgium,France,1.0,0.0,0.0,1.0,0.0
+Belgium,Spain,1.0,0.0,0.0,1.0,0.0
+Belgium,Portugal,1.0,0.0,0.0,1.0,0.0
+Belgium,Italy,1.0,0.0,0.0,1.0,0.0
+Belgium,Greece,1.0,0.0,0.0,1.0,0.0
+Luxembourg,France,1.0,0.0,0.0,1.0,0.0
+Luxembourg,Spain,1.0,0.0,0.0,1.0,0.0
+Luxembourg,Portugal,1.0,0.0,0.0,1.0,0.0
+Luxembourg,Italy,1.0,0.0,0.0,1.0,0.0
+Luxembourg,Greece,1.0,0.0,0.0,1.0,0.0
+France,Spain,1.0,0.0,0.0,1.0,0.0
+France,Portugal,1.0,0.0,0.0,1.0,0.0
+France,Italy,1.0,0.0,0.0,1.0,0.0
+France,Greece,1.0,0.0,0.0,1.0,0.0
+Spain,Portugal,1.0,0.0,0.0,1.0,0.0
+Spain,Italy,1.0,0.0,0.0,1.0,0.0
+Spain,Greece,1.0,0.0,0.0,1.0,0.0
+Portugal,Italy,1.0,0.0,0.0,1.0,0.0
+Portugal,Greece,1.0,0.0,0.0,1.0,0.0
+Italy,Greece,1.0,0.0,0.0,1.0,0.0
+United Kingdom,Netherlands,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Belgium,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Luxembourg,1.0,0.0,1.0,1.0,0.0
+United Kingdom,France,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Spain,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Portugal,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Germany,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Poland,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Hungary,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Czech Republic,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Italy,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Greece,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Norway,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Denmark,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Iceland,1.0,0.0,1.0,1.0,0.0
+United Kingdom,Turkey,1.0,0.0,1.0,1.0,1.0
+Netherlands,Belgium,1.0,0.0,1.0,1.0,0.0
+Netherlands,Luxembourg,1.0,0.0,1.0,1.0,0.0
+Netherlands,France,1.0,0.0,1.0,1.0,0.0
+Netherlands,Spain,1.0,0.0,1.0,1.0,0.0
+Netherlands,Portugal,1.0,0.0,1.0,1.0,0.0
+Netherlands,Germany,1.0,0.0,1.0,1.0,0.0
+Netherlands,Poland,1.0,0.0,1.0,1.0,0.0
+Netherlands,Hungary,1.0,0.0,1.0,1.0,0.0
+Netherlands,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Netherlands,Italy,1.0,0.0,1.0,1.0,0.0
+Netherlands,Greece,1.0,0.0,1.0,1.0,0.0
+Netherlands,Norway,1.0,0.0,1.0,1.0,0.0
+Netherlands,Denmark,1.0,0.0,1.0,1.0,0.0
+Netherlands,Iceland,1.0,0.0,1.0,1.0,0.0
+Netherlands,Turkey,1.0,0.0,1.0,1.0,1.0
+Belgium,Luxembourg,1.0,0.0,1.0,1.0,0.0
+Belgium,France,1.0,0.0,1.0,1.0,0.0
+Belgium,Spain,1.0,0.0,1.0,1.0,0.0
+Belgium,Portugal,1.0,0.0,1.0,1.0,0.0
+Belgium,Germany,1.0,0.0,1.0,1.0,0.0
+Belgium,Poland,1.0,0.0,1.0,1.0,0.0
+Belgium,Hungary,1.0,0.0,1.0,1.0,0.0
+Belgium,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Belgium,Italy,1.0,0.0,1.0,1.0,0.0
+Belgium,Greece,1.0,0.0,1.0,1.0,0.0
+Belgium,Norway,1.0,0.0,1.0,1.0,0.0
+Belgium,Denmark,1.0,0.0,1.0,1.0,0.0
+Belgium,Iceland,1.0,0.0,1.0,1.0,0.0
+Belgium,Turkey,1.0,0.0,1.0,1.0,1.0
+Luxembourg,France,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Spain,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Portugal,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Germany,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Poland,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Hungary,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Italy,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Greece,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Norway,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Denmark,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Iceland,1.0,0.0,1.0,1.0,0.0
+Luxembourg,Turkey,1.0,0.0,1.0,1.0,1.0
+France,Spain,1.0,0.0,1.0,1.0,0.0
+France,Portugal,1.0,0.0,1.0,1.0,0.0
+France,Germany,1.0,0.0,1.0,1.0,0.0
+France,Poland,1.0,0.0,1.0,1.0,0.0
+France,Hungary,1.0,0.0,1.0,1.0,0.0
+France,Czech Republic,1.0,0.0,1.0,1.0,0.0
+France,Italy,1.0,0.0,1.0,1.0,0.0
+France,Greece,1.0,0.0,1.0,1.0,0.0
+France,Norway,1.0,0.0,1.0,1.0,0.0
+France,Denmark,1.0,0.0,1.0,1.0,0.0
+France,Iceland,1.0,0.0,1.0,1.0,0.0
+France,Turkey,1.0,0.0,1.0,1.0,1.0
+Spain,Portugal,1.0,0.0,1.0,1.0,0.0
+Spain,Germany,1.0,0.0,1.0,1.0,0.0
+Spain,Poland,1.0,0.0,1.0,1.0,0.0
+Spain,Hungary,1.0,0.0,1.0,1.0,0.0
+Spain,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Spain,Italy,1.0,0.0,1.0,1.0,0.0
+Spain,Greece,1.0,0.0,1.0,1.0,0.0
+Spain,Norway,1.0,0.0,1.0,1.0,0.0
+Spain,Denmark,1.0,0.0,1.0,1.0,0.0
+Spain,Iceland,1.0,0.0,1.0,1.0,0.0
+Spain,Turkey,1.0,0.0,1.0,1.0,1.0
+Portugal,Germany,1.0,0.0,1.0,1.0,0.0
+Portugal,Poland,1.0,0.0,1.0,1.0,0.0
+Portugal,Hungary,1.0,0.0,1.0,1.0,0.0
+Portugal,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Portugal,Italy,1.0,0.0,1.0,1.0,0.0
+Portugal,Greece,1.0,0.0,1.0,1.0,0.0
+Portugal,Norway,1.0,0.0,1.0,1.0,0.0
+Portugal,Denmark,1.0,0.0,1.0,1.0,0.0
+Portugal,Iceland,1.0,0.0,1.0,1.0,0.0
+Portugal,Turkey,1.0,0.0,1.0,1.0,1.0
+Germany,Poland,1.0,0.0,1.0,1.0,0.0
+Germany,Hungary,1.0,0.0,1.0,1.0,0.0
+Germany,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Germany,Italy,1.0,0.0,1.0,1.0,0.0
+Germany,Greece,1.0,0.0,1.0,1.0,0.0
+Germany,Norway,1.0,0.0,1.0,1.0,0.0
+Germany,Denmark,1.0,0.0,1.0,1.0,0.0
+Germany,Iceland,1.0,0.0,1.0,1.0,0.0
+Germany,Turkey,1.0,0.0,1.0,1.0,1.0
+Poland,Hungary,1.0,0.0,1.0,1.0,0.0
+Poland,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Poland,Italy,1.0,0.0,1.0,1.0,0.0
+Poland,Greece,1.0,0.0,1.0,1.0,0.0
+Poland,Norway,1.0,0.0,1.0,1.0,0.0
+Poland,Denmark,1.0,0.0,1.0,1.0,0.0
+Poland,Iceland,1.0,0.0,1.0,1.0,0.0
+Poland,Turkey,1.0,0.0,1.0,1.0,1.0
+Hungary,Czech Republic,1.0,0.0,1.0,1.0,0.0
+Hungary,Italy,1.0,0.0,1.0,1.0,0.0
+Hungary,Greece,1.0,0.0,1.0,1.0,0.0
+Hungary,Norway,1.0,0.0,1.0,1.0,0.0
+Hungary,Denmark,1.0,0.0,1.0,1.0,0.0
+Hungary,Iceland,1.0,0.0,1.0,1.0,0.0
+Hungary,Turkey,1.0,0.0,1.0,1.0,1.0
+Czech Republic,Italy,1.0,0.0,1.0,1.0,0.0
+Czech Republic,Greece,1.0,0.0,1.0,1.0,0.0
+Czech Republic,Norway,1.0,0.0,1.0,1.0,0.0
+Czech Republic,Denmark,1.0,0.0,1.0,1.0,0.0
+Czech Republic,Iceland,1.0,0.0,1.0,1.0,0.0
+Czech Republic,Turkey,1.0,0.0,1.0,1.0,1.0
+Italy,Greece,1.0,0.0,1.0,1.0,0.0
+Italy,Norway,1.0,0.0,1.0,1.0,0.0
+Italy,Denmark,1.0,0.0,1.0,1.0,0.0
+Italy,Iceland,1.0,0.0,1.0,1.0,0.0
+Italy,Turkey,1.0,0.0,1.0,1.0,1.0
+Greece,Norway,1.0,0.0,1.0,1.0,0.0
+Greece,Denmark,1.0,0.0,1.0,1.0,0.0
+Greece,Iceland,1.0,0.0,1.0,1.0,0.0
+Greece,Turkey,1.0,0.0,1.0,1.0,1.0
+Norway,Denmark,1.0,0.0,1.0,1.0,0.0
+Norway,Iceland,1.0,0.0,1.0,1.0,0.0
+Norway,Turkey,1.0,0.0,1.0,1.0,1.0
+Denmark,Iceland,1.0,0.0,1.0,1.0,0.0
+Denmark,Turkey,1.0,0.0,1.0,1.0,1.0
+Iceland,Turkey,1.0,0.0,1.0,1.0,1.0
+Germany,Russia,0.0,1.0,1.0,1.0,0.0
+Romania,Turkey,0.0,1.0,0.0,0.0,0.0
+Greece,Bulgaria,0.0,1.0,0.0,0.0,0.0
+Greece,Romania,0.0,1.0,0.0,1.0,0.0
+Hungary,Ukraine,0.0,1.0,0.0,0.0,0.0
+Russia,Finland,0.0,1.0,1.0,1.0,0.0
+Bulgaria,Romania,0.0,1.0,1.0,1.0,0.0
+France,Russia,0.0,0.0,0.0,1.0,0.0
+Bulgaria,Turkey,0.0,1.0,1.0,1.0,0.0
+Russia,Ukraine,1.0,0.0,0.0,0.0,0.0
+Poland,Ukraine,0.0,1.0,1.0,1.0,0.0
+Poland,Russia,0.0,1.0,1.0,1.0,0.0
+Russia,Turkey,0.0,1.0,1.0,1.0,0.0
+Poland,Latvia,0.0,1.0,0.0,0.0,0.0
+Poland,Estonia,0.0,1.0,0.0,1.0,0.0
+Bulgaria,Russia,0.0,1.0,1.0,1.0,0.0
+Czech Republic,Slovakia,1.0,0.0,0.0,1.0,0.0
+Slovakia,Ukraine,0.0,1.0,1.0,1.0,0.0
+Slovakia,Romania,0.0,1.0,1.0,1.0,0.0
+Croatia,Turkey,0.0,1.0,1.0,1.0,0.0
+Latvia,Ukraine,0.0,1.0,1.0,1.0,0.0
+Poland,Greece,0.0,0.0,1.0,0.0,0.0
+Denmark,Iceland,1.0,0.0,0.0,0.0,1.0

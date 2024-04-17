@@ -1,0 +1,272 @@
+---
+author: "Marko Suchy"
+title: "Netowrks of European Countries"
+output: 
+  pdf_document: default
+  html_document: default
+date: "2022-10-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Introduction
+
+  In this project, data was drawn from public sources regarding three relationships between European countries: cultural similarity, economic trading, and militaristic ties. The countries are not limited to those in the European Union. The network analysis among these countries will prove interesting considering the current political happenings in Europe: an invasion of Ukraine, and the crashing of the pound. Hopefully, network analysis can offer some insight into why and how these events are unfolding.
+  
+  Cultural similarity data was scraped from a study done by Dr. Jochen Roose, of the Freie Universität Berlin, based on responses to the European Social Survey. The study constructed an index from 0 to 1 for the cultural similarity between most European countries. Over 500 data points exist from this study, and are used as edges in the cultural similarity network below. The countries with similarity indices are used as the base set of nodes for our networks. More reading about the construction of the index, as well as the data itself, can be found here: http://userpage.fu-berlin.de/~jroose/index_en/main_indexvaluesaz.htm
+  
+  Economic trading data was scraped from the World Integrated Trade Solution website. Data was pulled from the top 5 'export & import partners' for each country in our base set of nodes. An edge between partner and country was created if both were included in out base set of nodes. Information about the dollar amount of trade between countries (in millions of USD) and partner share percent were also scraped from the WITS website, and included as edge attributes. The data is located here: https://wits.worldbank.org/countrysnapshot/en/RUS
+  
+  Militaristic tie data proved to be quite difficult to collect. No good data set between countries was able to be found. Partners of NATO were assumed to be connected. Other obvious connections were included, such as the warring relationship between Russia and Ukraine, and the main supporters in Europe of both Russia and Ukraine. These ties were demarcated with the attributes: "nato" "war" and "supporting." Hopefully in future a more cohesive data set can be found to index the militaristic connections between countries. 
+  
+  Node attributes: democracy index, press freedom index, population, and GDP, were all pulled from various Wikipedia tables. More reading on the measurement of each of these attributes can be found in the list of links below. 
+  
+  https://en.wikipedia.org/wiki/Democracy_Index
+  
+  https://en.wikipedia.org/wiki/Press_Freedom_Index
+  
+  https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population
+  
+  https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)
+  
+  Relationship types were chosen because they were representative of different major connections between countries. The idea is to attain some sort of holistic picture of the relationship between countries, so a wide variety of comparisons can be made. Data scraping for the entire project was done by python script, and proved to be quite a major undertaking. 
+  
+## Import and Join Data
+
+```{r, message = F}
+#initialize libraries
+library(statnet)
+library(intergraph)
+library(tidyverse)
+```
+
+Import and join cultural similarity index data:
+```{r, message = F}
+cultural_exchange_edgelist <- read.csv("cultural_exchange_edgelist")
+cultural_strength <- read.csv("cultural_exchange_strength")
+cultural_exchange_network <- as.network(cultural_exchange_edgelist, directed = FALSE)
+
+network::set.edge.attribute(cultural_exchange_network, "weight", cultural_strength[['strength']])
+```
+
+Import and join economic trading data:
+```{r, message = F}
+economic_exchange_edgelist <- read.csv("trade_edge_list")
+economic_exchange_edge_attributes <- read_csv("trade_edge_attributes")
+economic_exchange_network <- as.network(economic_exchange_edgelist)
+
+set.edge.attribute(economic_exchange_network, "trade_in_USD", economic_exchange_edge_attributes$Trade)
+set.edge.attribute(economic_exchange_network, "share_percent", economic_exchange_edge_attributes$`Share Percent`)
+```
+note: trade dollar amount is measures in USD millions
+
+Import and join militaristic tie data:
+```{r, message = F}
+militaristic_tie_edgelist <- read.csv("military_edge_list")
+militaristic_tie_attributes <- read.csv("military_edge_attribute")
+militaristic_tie_network <- as.network(militaristic_tie_edgelist, directed = FALSE, loops = TRUE)
+network::set.edge.attribute(militaristic_tie_network, "type", militaristic_tie_attributes)
+```
+Here, the "type" attribute specifies the kind of militaristic tie. It is either war, Nato, or supporting. 
+
+Some Nodes are not included in the original edgelist, so they must be added seperatley
+```{r}
+network::add.vertices(militaristic_tie_network, 8)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Austria", v = 26)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Cyprus", v = 27)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Finland", v = 28)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Germany", v = 29)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Ireland", v = 30)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Israel", v = 31)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Sweden", v = 32)
+network::set.vertex.attribute(militaristic_tie_network, "vertex.names", "Switzerland", v = 33)
+
+```
+
+
+## Five Number Summaries
+### Cultural Similarity
+```{r, collapse=FALSE, results='hold'}
+network.size(cultural_exchange_network)
+gden(cultural_exchange_network, mode = "graph", ignore.eval = FALSE)
+components(cultural_exchange_network)
+gd <- geodist(cultural_exchange_network)
+max(gd$gdist)
+gtrans(cultural_exchange_network, mode = "graph")
+```
+The measures of density, components, diameter, and clustering coefficients of this five number summary are  misleading. This is due to the fact that the network is almost a clique. Almost all nodes have ties between them, just with differing weight. The issue is that these measurements do not take into account tie weight.
+
+We can manually calculate the density of the network while taking weight into account by diving twice the sum of tie weights by the total number of possible ties. 
+```{r, echo = FALSE, }
+density <- 2*sum(cultural_strength)/(33*32)
+print(density)
+```
+
+To tackle the clique issue with regards to components, diameter, and clustering coefficient, we can set some threshold for the minimum weight of a tie for it to be considered an edge. 
+```{r, message = F}
+cultural_exchange_df <- data.frame(edge_list = cultural_exchange_edgelist, weights = cultural_strength)
+subgraph <- as.network(filter(cultural_exchange_df, strength > .7))
+
+```
+
+```{r, results='hold'}
+gden(subgraph)
+components(subgraph)
+subgraph_gd <- geodist(subgraph, inf.replace=0)
+max(subgraph_gd$gdist)
+gtrans(subgraph, mode = "graph")
+```
+Now we see a much more sensible 5 number summary of the cultural similarity network. The density of the graph is far lower, because not many countries have an index of cultural similarity greater than 0.7. 32 components exist because there are no localized cliques. The diameter 5 suggest the network is reasonably compact, as to be expected from a region with such free flowing information between countries as Europe. The clustering coefficient suggests reasonably strong triadic closure between similar cultures. This is likely due to highly similar cultures being geographically localized.  
+
+### Economic Trading
+```{r, results='hold'}
+network.size(economic_exchange_network)
+gden(economic_exchange_network)
+components(economic_exchange_network)
+economic_gd <- geodist(economic_exchange_network, inf.replace=0)
+max(economic_gd$gdist)
+gtrans(economic_exchange_network, mode = "digraph")
+```
+The most interesting part of this network is the rather strong transitivity, as it suggests the trading partners often cluster. The lack of density is likely due in part to the nature of data collection (only the top 5 partners for each node was collected.) The density number gives insight to the extent to which top trading partners are domestic. Density would be expected to be 0.2 if all top trading partners were European.  
+
+### Militaristic Ties
+```{r, results='hold'}
+network.size(militaristic_tie_network)
+gden(militaristic_tie_network)
+components(militaristic_tie_network)
+militaristic_gd <- geodist(militaristic_tie_network, inf.replace=0)
+max(militaristic_gd$gdist)
+gtrans(economic_exchange_network, mode = "graph")
+```
+It is hard to draw insights from this summary due to the difficulty in data collection in this area. However, one interesting item are the 9 components of the network, suggesting some militaristic separation among European countries.
+
+## Basic Visualizations
+### Cultural Similarity
+In plotting the cultural similarity network, it will be important to set the opacity of edges based on the weight of edges. We use an exponent for the alpha value to better see what ties are especially strong, and which are not.
+```{r,message = F}
+cultural_exchange_network.ecol <- gray(1 - (cultural_exchange_network %e% "weight"), alpha = (cultural_exchange_network %e% "weight")^4)
+```
+```{r, include=FALSE}
+op <- par(mar=c(0,0,0,0))
+coords <- gplot(cultural_exchange_network, gmode = "graph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, edge.col = cultural_exchange_network.ecol, label.cex = .7)
+par(op)
+
+```
+Now, we plot the network.
+```{r, results='hold'}
+op <- par(mar=c(0,0,0,0))
+gplot(cultural_exchange_network, gmode = "graph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, edge.col = cultural_exchange_network.ecol, label.cex = .7, coord = coords * 1.5)
+par(op)
+```
+Another way to visualize the network is to plot the sub-graph which we obtained earlier by removing all edges that had a weight less than 0.7.
+```{r, results='hold'}
+op <- par(mar=c(0,1,0,0))
+gplot(as.network(filter(cultural_exchange_df, strength > .8)), gmode = "graph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, label.cex = .5, edge.col = cultural_exchange_network.ecol)
+par(op)
+```
+This visualization offers insights into the groups of cultures existent throughout Europe. it also shows Cyprus, interestingly, as a key bridge between two major cultural groups. 
+### Economic Trading
+Our economic trading data is indeed directed, as country 1 may be in county 2's top 5 partners, while country 2 isn't in country 1's top five partners. 
+```{r, results='hold'}
+op <- par(mar=c(0,1,0,0))
+gplot(economic_exchange_network, gmode = "digraph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, label.cex = .5, arrowhead.cex = .3)
+par(op)
+```
+From this visualization, it is clear that both Germany and France are quite central in domestic trading across Europe. Thus, their position likely offers them unique control in the flow of domestic goods throughout Europe, and a leg up in economic health. The Netherlands, United Kingdom, and Italy exist with a sort of 2nd degree centrality, and benefit in the same ways to a lesser extent. The countries on the outskirts of this visualization maintain primary economic ties with non-domestic partners. 
+
+### Militaristic Ties
+In this network, setting edge color will be very important. For this, we will use nested ifelse statements.
+```{r}
+militaristic_tie_network.ecol = ifelse(militaristic_tie_network %e% "type" == "nato", rgb(0,0,1,alpha = .1),ifelse(militaristic_tie_network %e% "type" == "war", rgb(1,.5,.5,alpha = 1), ifelse(militaristic_tie_network %e% "type" == "support", rgb(.2,1,.2,alpha = 1), rgb(1,0,0,1))))
+```
+Now, we plot the network. To see what's going on in the network where there are connections, we set displayisolates to false. 
+```{r}
+op <- par(mar=c(0,0,0,0))
+gplot(militaristic_tie_network, gmode = "graph", displaylabels = TRUE, label.pos = 5, boxed.labels = T, label.border = 0, label.cex = .4, edge.col = militaristic_tie_network.ecol, displayisolates = FALSE, label.pad = 0)
+par(op)
+```
+Here, we see a maximally connected clique of countries in nato, with two other nodes Ukraine and Russia having other edges. The red line indicates war, while the green line indicates military support. Interestingly, we see that Hungary has not been excommunicated from the clique regardless of their support of Russia. 
+
+## Visualizations With Node Attributes
+### Joining Node Attributes
+First, load node attributes CSV file into a dataframe object.
+```{r, message = F}
+cultural_node_attributes <- read_csv("node_attributes_cultural_exchange")
+economic_node_attributes <- read_csv("node_attributes_economic_exchange")
+militaristic_node_attributes <- read_csv("node_attributes_militaristic_ties")
+```
+Set vertex attributes for cultural exchange network.
+```{r}
+network::set.vertex.attribute(cultural_exchange_network, "democracy_index",cultural_node_attributes$democracy_index)
+network::set.vertex.attribute(cultural_exchange_network, "press_freedoom",cultural_node_attributes$press_freedom)
+network::set.vertex.attribute(cultural_exchange_network, "population",cultural_node_attributes$population)
+network::set.vertex.attribute(cultural_exchange_network, "GDP",cultural_node_attributes$GDP)
+```
+Set vertex attributes for economic exchange network.
+```{r}
+network::set.vertex.attribute(economic_exchange_network, "democracy_index",economic_node_attributes$democracy_index)
+network::set.vertex.attribute(economic_exchange_network, "press_freedom",economic_node_attributes$press_freedom)
+network::set.vertex.attribute(economic_exchange_network, "population",economic_node_attributes$population)
+network::set.vertex.attribute(economic_exchange_network, "GDP",economic_node_attributes$GDP)
+```
+Set vertex attributes for militaristic tie network.
+```{r}
+network::set.vertex.attribute(militaristic_tie_network, "democracy_index",militaristic_node_attributes$democracy_index)
+network::set.vertex.attribute(militaristic_tie_network, "press_freedom",militaristic_node_attributes$press_freedom)
+network::set.vertex.attribute(militaristic_tie_network, "population",militaristic_node_attributes$population)
+network::set.vertex.attribute(militaristic_tie_network, "GDP",militaristic_node_attributes$GDP)
+```
+
+### Cultural Similarity
+
+We will examine first if population size has to do with cultural similarity. To do this, we use the gray function to set nodes with the highest population to white, the lowest population to black, and evertthing else somewhere inbetween.
+```{r}
+populations <- cultural_exchange_network %v% "population"
+cultural_exchange_network.vcol <- gray((cultural_exchange_network %v% "population")/max(populations))
+```
+```{r}
+op <- par(mar=c(0,1,0,0))
+gplot(cultural_exchange_network, gmode = "graph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, label.cex = .5, edge.col = cultural_exchange_network.ecol, vertex.col = cultural_exchange_network.vcol)
+par(op)
+```
+We see from this graph that population does not seem to be a quality predictor of cultural similarity, as many nodes with strong ties beteen them have almost opposite color. 
+
+### Economic Exchange
+For the exchange network, we'll use include a country's GDP. White represents the maximum GDP of any country, while black represents the minimum. 
+```{r}
+economic_ecxchange_net.vcol <- gray((economic_exchange_network %v% "GDP")/max(economic_exchange_network %v% "GDP"))
+op <- par(mar=c(0,1,0,0))
+gplot(economic_exchange_network, gmode = "digraph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, label.cex = .5, label.pad = 0.15, edge.col = "black", vertex.col = economic_ecxchange_net.vcol, arrowhead.cex = .2)
+par(op)
+
+```
+The graph makes it clear that the centrality of a node correlates with it's GDP. This those who are positioned at the center of domestic trade are leaders too in world trade. However it seems rather obvious that GDP would correlate to leaders in trade, so lets try something different
+
+this time, a white node represents one with a high index of press freedom. 
+```{r}
+max <- max(economic_exchange_network %v% "press_freedom")
+economic_ecxchange_net.vcol <- gray((economic_exchange_network %v% "press_freedom")/max)
+op <- par(mar=c(0,1,0,0))
+gplot(economic_exchange_network, gmode = "digraph", displaylabels = TRUE, label.pos = 2, boxed.labels = T, label.border = 1, label.cex = .5, label.pad = 0.15, edge.col = "black", vertex.col = economic_ecxchange_net.vcol, arrowhead.cex = .2)
+par(op)
+
+```
+Through Germany, we see that the most central node is the one with the most press freedom. However, we see many smaller countries with a high degree of press freedom who are not central to the economic system, so it seems press freedom isn't a good predictor of network centrality. 
+
+### Militaristic Ties
+We will add democracy index to our military relation network. A white node represents country with a perfect democracy score, and black node with a democracy score of 0. 
+```{r}
+militaristic_ties.vcol <- gray((militaristic_tie_network %v% "democracy_index")/max(militaristic_tie_network %v% "democracy_index"))
+op <- par(mar=c(0,0,0,0))
+gplot(militaristic_tie_network, gmode = "graph", displaylabels = TRUE, label.pos = 5, boxed.labels = T, label.border = 0, label.cex = .4, edge.col = militaristic_tie_network.ecol, displayisolates = FALSE, label.pad = 0, vertex.col = militaristic_ties.vcol)
+par(op)
+
+```
+Here, we see that both nodes at war have relativity low democracy scores. Interestingly, the nodes with high democracy scores are not playing supporting roles, the main supporters are rather countries with medium democracy scores. This may suggest something about the type of country who is willing to send arms, and politically support other countries at war. 
+
+## Summary Disucusion
+  
+The analysis above is a good start, but certainly far from complete. It does answer some questions about the centrality of countries in the economy, culturally, and which types of countries are most likely to support their allies militarily. The most interesting question raised for further study is the nature of the cultural bridge, Cyprus. Other questions include the reason for economic centrality, and it's correlation with cultural similarities. Are culturally similar countries more likeley to trade with one another?
+
+In future, more data will be collected on militaristic ties. Hopefully, some type of military alliance index can be found. Another intersiting avenue to explroe would be geographical closeness, either as a node arttribute or valued edge. It could also be fruitful to collect more node attributes, and run regressions with other possible confounding variables, as Burt did. This might start to answer the 'why?' for many of the observed patterns.

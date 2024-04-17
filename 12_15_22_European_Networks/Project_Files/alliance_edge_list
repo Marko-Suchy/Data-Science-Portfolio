@@ -1,0 +1,197 @@
+country 1,country 2
+United Kingdom,Portugal
+United Kingdom,Netherlands
+United Kingdom,Belgium
+United Kingdom,Luxembourg
+United Kingdom,France
+United Kingdom,Spain
+United Kingdom,Portugal
+United Kingdom,Italy
+United Kingdom,Greece
+Netherlands,Belgium
+Netherlands,Luxembourg
+Netherlands,France
+Netherlands,Spain
+Netherlands,Portugal
+Netherlands,Italy
+Netherlands,Greece
+Belgium,Luxembourg
+Belgium,France
+Belgium,Spain
+Belgium,Portugal
+Belgium,Italy
+Belgium,Greece
+Luxembourg,France
+Luxembourg,Spain
+Luxembourg,Portugal
+Luxembourg,Italy
+Luxembourg,Greece
+France,Spain
+France,Portugal
+France,Italy
+France,Greece
+Spain,Portugal
+Spain,Italy
+Spain,Greece
+Portugal,Italy
+Portugal,Greece
+Italy,Greece
+United Kingdom,Netherlands
+United Kingdom,Belgium
+United Kingdom,Luxembourg
+United Kingdom,France
+United Kingdom,Spain
+United Kingdom,Portugal
+United Kingdom,Germany
+United Kingdom,Poland
+United Kingdom,Hungary
+United Kingdom,Czech Republic
+United Kingdom,Italy
+United Kingdom,Greece
+United Kingdom,Norway
+United Kingdom,Denmark
+United Kingdom,Iceland
+United Kingdom,Turkey
+Netherlands,Belgium
+Netherlands,Luxembourg
+Netherlands,France
+Netherlands,Spain
+Netherlands,Portugal
+Netherlands,Germany
+Netherlands,Poland
+Netherlands,Hungary
+Netherlands,Czech Republic
+Netherlands,Italy
+Netherlands,Greece
+Netherlands,Norway
+Netherlands,Denmark
+Netherlands,Iceland
+Netherlands,Turkey
+Belgium,Luxembourg
+Belgium,France
+Belgium,Spain
+Belgium,Portugal
+Belgium,Germany
+Belgium,Poland
+Belgium,Hungary
+Belgium,Czech Republic
+Belgium,Italy
+Belgium,Greece
+Belgium,Norway
+Belgium,Denmark
+Belgium,Iceland
+Belgium,Turkey
+Luxembourg,France
+Luxembourg,Spain
+Luxembourg,Portugal
+Luxembourg,Germany
+Luxembourg,Poland
+Luxembourg,Hungary
+Luxembourg,Czech Republic
+Luxembourg,Italy
+Luxembourg,Greece
+Luxembourg,Norway
+Luxembourg,Denmark
+Luxembourg,Iceland
+Luxembourg,Turkey
+France,Spain
+France,Portugal
+France,Germany
+France,Poland
+France,Hungary
+France,Czech Republic
+France,Italy
+France,Greece
+France,Norway
+France,Denmark
+France,Iceland
+France,Turkey
+Spain,Portugal
+Spain,Germany
+Spain,Poland
+Spain,Hungary
+Spain,Czech Republic
+Spain,Italy
+Spain,Greece
+Spain,Norway
+Spain,Denmark
+Spain,Iceland
+Spain,Turkey
+Portugal,Germany
+Portugal,Poland
+Portugal,Hungary
+Portugal,Czech Republic
+Portugal,Italy
+Portugal,Greece
+Portugal,Norway
+Portugal,Denmark
+Portugal,Iceland
+Portugal,Turkey
+Germany,Poland
+Germany,Hungary
+Germany,Czech Republic
+Germany,Italy
+Germany,Greece
+Germany,Norway
+Germany,Denmark
+Germany,Iceland
+Germany,Turkey
+Poland,Hungary
+Poland,Czech Republic
+Poland,Italy
+Poland,Greece
+Poland,Norway
+Poland,Denmark
+Poland,Iceland
+Poland,Turkey
+Hungary,Czech Republic
+Hungary,Italy
+Hungary,Greece
+Hungary,Norway
+Hungary,Denmark
+Hungary,Iceland
+Hungary,Turkey
+Czech Republic,Italy
+Czech Republic,Greece
+Czech Republic,Norway
+Czech Republic,Denmark
+Czech Republic,Iceland
+Czech Republic,Turkey
+Italy,Greece
+Italy,Norway
+Italy,Denmark
+Italy,Iceland
+Italy,Turkey
+Greece,Norway
+Greece,Denmark
+Greece,Iceland
+Greece,Turkey
+Norway,Denmark
+Norway,Iceland
+Norway,Turkey
+Denmark,Iceland
+Denmark,Turkey
+Iceland,Turkey
+Germany,Russia
+Romania,Turkey
+Greece,Bulgaria
+Greece,Romania
+Hungary,Ukraine
+Russia,Finland
+Bulgaria,Romania
+France,Russia
+Bulgaria,Turkey
+Russia,Ukraine
+Poland,Ukraine
+Poland,Russia
+Russia,Turkey
+Poland,Latvia
+Poland,Estonia
+Bulgaria,Russia
+Czech Republic,Slovakia
+Slovakia,Ukraine
+Slovakia,Romania
+Croatia,Turkey
+Latvia,Ukraine
+Poland,Greece
+Denmark,Iceland

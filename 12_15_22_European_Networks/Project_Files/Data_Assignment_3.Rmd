@@ -1,0 +1,286 @@
+---
+title: "Data_Assignment_3"
+author: "Marko Suchy"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+## Introduction
+
+  This project focuses on 3 networks reaching across Europe: cultural similarity, trading partnership, and militaristic alliances. Data for each of these relationship types, as well as node and edge attributes, were pulled from public online sources and cleaned and prepared using Python. 
+  
+  Cultural similarity data was scraped from a study done by Dr. Jochen Roose, of the Freie Universität Berlin, based on responses to the European Social Survey. The study constructed an index from 0 to 1 for the cultural similarity between most European countries. Over 500 data points exist from this study, and are used as edges in the cultural similarity network below. The countries with similarity indices are used as the base set of nodes for our networks. 
+  
+  Economic trading data was scraped from the World Integrated Trade Solution website. Data was pulled from the top 5 'export & import partners' for each country in our base set of nodes. An edge between partner and country was created if both were included in out base set of nodes. Information about the dollar amount of trade between countries (in millions of USD) and partner share percent were also scraped from the WITS website, and included as edge attributes. 
+  
+  Alliance data was taken from the 'Correltes of War' database and prepared in python. This dataset held Alliances across hundreds of countries throughout history (starting before World War 1.) All alliances with end dates were removed. The data includes many types of agreements: defense, neutrality, nonaggression, entente, and asymmetric. One big disadvantage to the data found is that it is missing data from Austria, Ireland, Israel, Slovenia, Sweden, Switzerland, Cyprus.  
+  
+  Node attributes: democracy index, press freedom index, population, GDP, and region, were all pulled from various Wikipedia tables. More reading on the measurement of each of these attributes can be found in the list data sources. 
+  
+  The project is interesting because it may offer some questions for further study regarding relationships in Europe, which is currently in a volitile state due to the war in Ukraine. It also provided an excellent opportunity for me personally to practice my data scraping and wrangling skills in both Python and R.
+
+## Exploratory Visualizations
+```{r, include = F}
+library(statnet)
+library(intergraph)
+library(tidyverse)
+```
+We import and join cultural similarity network data, and create a subgraph including only ties with a weight greater than 0.78. This threshold is selected because it seems to suggest a significant level of connection, without creating too sparse a network.
+```{r, message = F}
+cultural_exchange_edgelist <- read.csv("cultural_exchange_edgelist")
+cultural_strength <- read.csv("cultural_exchange_strength")
+cultural_node_attributes <- read_csv("node_attributes_cultural_exchange")
+cultural_exchange_network <- as.network(cultural_exchange_edgelist, directed = FALSE)
+
+set.edge.attribute(cultural_exchange_network, "weight", cultural_strength[['strength']])
+
+set.vertex.attribute(cultural_exchange_network, "democracy_index",
+                     cultural_node_attributes$democracy_index)
+set.vertex.attribute(cultural_exchange_network, "press_freedoom",
+                     cultural_node_attributes$press_freedom)
+set.vertex.attribute(cultural_exchange_network, "population",
+                     cultural_node_attributes$population)
+set.vertex.attribute(cultural_exchange_network, "GDP",
+                     cultural_node_attributes$GDP)
+set.vertex.attribute(cultural_exchange_network, "region", 
+                     cultural_node_attributes$region)
+cultural_similarity_subgraph <- get.inducedSubgraph(
+  cultural_exchange_network, eid=which(cultural_exchange_network %e% "weight" > .78))
+```
+
+Now we will set edge opacity based on weight, and the vertex color based on the node attribute region. Then we plot the network, including a legend.
+```{r}
+cultural_exchange_network.ecol <- gray(1 - (cultural_exchange_network %e% "weight"), 
+                                       alpha = (cultural_exchange_network %e% "weight")^4)
+cultural_exchange_network.vcol <- as.factor(cultural_similarity_subgraph %v% "region")
+
+op <- par(mar=c(0,0,0,0))
+
+gplot(cultural_similarity_subgraph, gmode = "graph", displaylabels = TRUE, label.pos = 1,
+      boxed.labels = T, label.border = 0, label.cex = .5, label.pad = 0, 
+      edge.col = cultural_exchange_network.ecol,
+      vertex.col = cultural_exchange_network.vcol)
+legend("bottomleft", legend = c("E", "N", "S", "W"),
+       col = as.factor(levels(cultural_exchange_network.vcol)), pch=19,pt.cex=1.5,bty="n",
+       title="Country Region")
+par(op)
+```
+This graph reveals that region appears an important factor in determining connection. However it seems that for Northern countries, and possibly southern countries, the importance of region is less. Also, Ireland is the only node connected to all other regions, and is positioned as a node with high bridging capital. 
+
+Now we will import and join our data on the economic relationships between countries.
+```{r, message = F}
+economic_exchange_edgelist <- read.csv("trade_edge_list")
+economic_exchange_edge_attributes <- read_csv("trade_edge_attributes")
+economic_node_attributes <- read_csv("node_attributes_economic_exchange")
+economic_exchange_network <- as.network(economic_exchange_edgelist)
+
+set.edge.attribute(economic_exchange_network, "trade_in_USD", 
+                   economic_exchange_edge_attributes$Trade)
+set.edge.attribute(economic_exchange_network, "share_percent", 
+                   economic_exchange_edge_attributes$`Share Percent`)
+set.vertex.attribute(economic_exchange_network, "democracy_index",
+                     economic_node_attributes$democracy_index)
+set.vertex.attribute(economic_exchange_network, "press_freedom",
+                     economic_node_attributes$press_freedom)
+set.vertex.attribute(economic_exchange_network, "population",
+                     economic_node_attributes$population)
+set.vertex.attribute(economic_exchange_network, "GDP",
+                     economic_node_attributes$GDP)
+set.vertex.attribute(economic_exchange_network, "region", 
+                     economic_node_attributes$region)
+```
+
+When we plot the graph, we see that France, Germany, Italy, and the United Kingdom are highly central. France and Germany's spots as number two and number two suggest that maybe region has something to do with degree centrality. Western countries, being closer to the Americas, might be more likely to be a profitable trading partner. This theory will be tested later via exponential random graph models (ERGMS.)
+```{r}
+op <- par(mar=c(0,1,0,0))
+gplot(economic_exchange_network, gmode = "digraph", displaylabels = TRUE, label.pos = 2, 
+      boxed.labels = T, label.border = 0, label.cex = .5, label.pad = 0, 
+      arrowhead.cex = .3)
+par(op)
+```
+
+Finally, we will import alliance data, and plot it. 
+```{r, message = F}
+alliance_edgelist <- read.csv("alliance_edge_list")
+alliance_edge_attributes <- read.csv("alliance_edge_attributes")
+alliance_node_attributes <- read.csv("node_attributes_alliance_network")
+
+alliance_network <- as.network(alliance_edgelist, multiple = T, directed = F)
+
+set.edge.attribute(alliance_network, "defense", alliance_edge_attributes$defense)
+set.edge.attribute(alliance_network, "neutrality", alliance_edge_attributes$neutrality)
+set.edge.attribute(alliance_network, "nonaggression", 
+                   alliance_edge_attributes$nonaggression)
+set.edge.attribute(alliance_network, "entente", alliance_edge_attributes$entente)
+set.edge.attribute(alliance_network, "asymmetric", alliance_edge_attributes$asymmetric)
+set.vertex.attribute(alliance_network, "region", alliance_node_attributes$region)
+
+op <- par(mar=c(0,0,0,0))
+gplot(alliance_network, gmode = "graph", displaylabels = TRUE, label.pos = 2, 
+      boxed.labels = T, label.border = 0, label.cex = .4, label.pad = 0)
+par(op)
+```
+This plot reveals that most of Europe, especially those countries in Nato, are heavily connected via alliances. It is possible to view specif alliance types, however we will not do this as it really does not seem to reveal much thart's interesting. 
+
+## Actor Prominence
+Because network detection algorithms did not work very well on our networks, we will focus on interesting findings regarding actor prominence. 
+
+We will start by examining the centrality data by node in the cultural similarity subgraph.
+```{r}
+vertex <- cultural_similarity_subgraph %v% "vertex.names"
+degree_centrality <- degree(cultural_similarity_subgraph, gmode="graph")
+closeness_centrality <- closeness(cultural_similarity_subgraph, gmode="graph")
+betweenness_centrality <- betweenness(cultural_similarity_subgraph, gmode="graph")
+
+centrality_df <- data.frame(vertex, degree_centrality, closeness_centrality, 
+                            betweenness_centrality)
+centrality_df[nrow(centrality_df) + 1,] = 
+  c("Network", centralization(cultural_similarity_subgraph,degree), 
+               centralization(cultural_similarity_subgraph,closeness), 
+               centralization(cultural_similarity_subgraph,betweenness))
+
+print(centrality_df)
+```
+Regarding degree centrality in the cultural similarity subgraph, we found that generally smaller countries held many strong connections, while bigger countries held fewer. This seems to make sense to the extent that the people of different neighboring smaller countries live within closer proximity to one another, while most people of big countries are only near their fellow countrymen.  
+
+From these finding, one wonders weather the prominence of an actor in the cultural similarity subgraph drives the greater culture of Europe, or weather it is the result of some other driving force. Surprisingly, Luxembourg emerged as Europe most prominent cultural actor. It wasthe actor with the highest degree centrality, and high closeness centrality and betweenness centrality. It is hard to believe that such a small country would drive the culture of Europe, so it seems out actor prominence reflects the effects of cultural similarity in Europe, rather than reveals the source.
+
+We will now turn to centrality and actor prominence in the economic exchange network. We will examine histograms of degree centrality and betweeness centrality.
+```{r, message=F}
+par(mfrow=c(1, 2))
+hist(degree(economic_exchange_network, gmode="digraph"), labels = F, breaks = "Sturges", 
+     main = "Degree Centrality", xlab = "")
+hist(betweenness(economic_exchange_network, gmode="digraph"), labels = F, 
+     breaks = "Sturges", main = "Betweenness Centrality", xlab = "")
+```
+These reveal that there seem to be a very small group of extremely prominent actors in this network. 
+
+To no one's surprise we see that Germany has the highest degree centrality within the network at 31 ties. This is consistent with Germany as Europe's largest national economy. Germany is followed by France and the UK, both at 20 ties, and Italy and the Netherlands, both at 15 ties. Other than the Netherlands, this follows the pattern of European economy by size exactly. 
+
+Interestingly, France is the country with betweeness centrality above 100. This finding, while hard to understand on its face, may open an intersting area for further exlploration.
+
+There is little overlap between the prominent countries of our cultural similarity network and the prominent countries in our economic trading partner network. This seems to have to do with a country's size. Small countries seem culturally similar to many other countries but don't have a lot of trading partners, while large countries have have a lot of trading partners but a lot of cultural individuality. \
+
+## IV Exponential Random Graph Models
+
+We will now turn our attention to analysis of our networks through ERGMs. We start with a null model built on our cultural similarity subgraph.
+```{r, message=F}
+cultural_mod0 <- ergm(cultural_similarity_subgraph ~ edges)
+summary(cultural_mod0)
+```
+
+We will make a model with considers node level attributes population, press freedom,  democracy index, and region. 
+```{r, message=F}
+cultural_mod1 <- ergm(cultural_similarity_subgraph ~ edges + nodecov("population") + 
+                        nodecov("press_freedoom") + nodecov("democracy_index") + nodefactor("region"))
+summary(cultural_mod1)
+```
+We see that of these characteristics, the one that makes a statistically significant difference in tie formation is being from the Western region of Europe. Being from the West increases a countries likelihood to have more strong ties. This seems to indicate that Western Europe may have more power in influencing the overall European culture than countries of other regions. 
+
+In our next model, we will include a dyadic term evaluating if regions match. It is expected that there is a positive correlation between being in the same region and having a connection, as cultures are tyoically regional.
+```{r, message=F}
+cultural_mod2 <- ergm(cultural_similarity_subgraph ~ edges + nodecov("population") 
+                      + nodecov("press_freedoom") + nodecov("democracy_index") 
+                      + nodefactor("region") + nodematch("region"))
+summary(cultural_mod2)
+```
+Indeed we find a significant positive correlation in our dyadic term. Interestingly, it seems that this was previously confounding the significance of a country being Western, as that has become not significant. Therefore it seems the local effects of culture greatly outweigh those from Western Europe.
+
+Our next model will consider a structural term, geometrically weighted degree distribution. Unfortunately the model would not compile with a gwesp term, which would be easier to interpret. 
+```{r, warning=FALSE, message = F}
+set.seed=42
+cultural_mod3 <- ergm(cultural_similarity_subgraph ~ edges + nodecov("population") + 
+                      nodecov("press_freedoom") + nodecov("democracy_index") + 
+                      nodematch("region") + gwdegree(decay = 2, fixed = FALSE, cutoff = 20),
+                      control = control.ergm(MCMLE.maxit = 30))
+summary(cultural_mod3)
+```
+We find the structural component to have no significant result. Likely this is due to the selection of only strong ties with a weight of .78 or above.
+
+We now will simulate our second and third models as well as the original network, to compare.  
+```{r, message=F, warning=F}
+sim1 <- simulate(cultural_mod3, nsim = 1, seed = 42)
+sim2 <- simulate(cultural_mod2, nsim = 1, seed = 42)
+cultural_exchange_network.vcol <- as.factor(cultural_similarity_subgraph %v% "region")
+par(mfrow=c(1, 3))
+plot(sim1, vertex.cex = 2, displaylabels = TRUE, label.pos = 2, boxed.labels = T, 
+      label.border = 0, label.cex = .5, label.pad = 0, arrowhead.cex = .3, 
+     vertex.col = cultural_exchange_network.vcol,
+     main = "Simulation of Model 3")
+gplot(sim2, gmode = "graph", displaylabels = TRUE, label.pos = 1,
+      boxed.labels = T, label.border = 0, label.cex = .5, label.pad = 0, 
+      vertex.col = cultural_exchange_network.vcol,
+      main = "Simulation of Model 2")
+gplot(cultural_similarity_subgraph, gmode = "graph", displaylabels = TRUE, label.pos = 1,
+      boxed.labels = T, label.border = 0, label.cex = .5, label.pad = 0, 
+      vertex.col = cultural_exchange_network.vcol,
+      main = "Actual Network")
+```
+In these simulations we see decent fit. Both model 2 and model 3 simulations captured the grouping by region quite well, which makes sense as this is the models ony significant term. 
+
+To further examine fit, we will use the gof function.
+```{r, message=F, warning=F}
+gof2 <- gof(cultural_mod2)
+print(gof2)
+```
+Because there are only few P-values close to one, we see that our model may not be a great fit, even though it generated alright simulations.
+
+We will now turn to our second set of ERGMs, associated with our economic exchange model. Once again we will start with a null model.
+```{r, message=F}
+economic_mod0 <- ergm(economic_exchange_network ~ edges)
+summary(economic_mod0)
+```
+Followed by a model that considers the node level attributes population, press freedom index, democracy index, and GDP.
+```{r, message=F}
+economic_mod1 <- ergm(economic_exchange_network ~ edges + nodecov("population") + 
+                      nodecov("press_freedom") + nodecov("democracy_index") + nodecov("GDP"))
+summary(economic_mod1)
+```
+In this model we see that only GDP is significant. This makes a lot of sense, as naturally countries with larger economies have a higher amount of countries trading with them. Population is also significant at the .1 level. Interestingly the coefficient on populaton is negative, meaning that as population increases the average number of trading partner decreases. This is quite surprising considering the countries with the highest GDPs typically have high populations. 
+
+we will now include a dyadic term, considering if two nodes belong to the same region. We expect the result to be positive, as two countries in the same region are geographically close, which facilitates convinient trading. 
+```{r, warning=FALSE, message=FALSE}
+economic_mod2 <- ergm(economic_exchange_network ~ edges + nodecov("population") + 
+                        nodecov("press_freedom") + nodecov("democracy_index") + 
+                        nodecov("GDP") + nodematch("region"))
+summary(economic_mod2)
+```
+This dyad term produces a highly significant positive coefficient. Therefore our theory of trading convince seems to prove correct. Also in this model, population becomes significant at the .05 level and democracy index at the .1 level. These two coefficients are both negative as well, which is quite counterintuitive. 
+
+Our final economic model includes a structural term, geometrically weighted dyadwise shared partner distribution, which is the sum of geometrically weighted non-edgewise shared partner distribution and geometrically weighted edgewise shared partner distribution. 
+```{r, message=F, warning= F}
+set.seed(42)
+economic_mod3 <- ergm(economic_exchange_network ~ edges + nodecov("population") + 
+                        nodecov("press_freedom") + nodecov("democracy_index") + 
+                        nodecov("GDP") + nodematch("region") + 
+                        dgwdsp(fixed = F), control = control.ergm(MCMLE.maxit = 25))
+summary(economic_mod3)
+```
+The addition of this term yields a very significant negative coefficient, and  also drops the AIC of our model. Our model's fit is greatly improved, but interpreting the results of our negative coefficient is challenging. Possibly this is due to each leg of a triad, as measured by the dgwdsp term, having to have both directions in it. But in our economic network, most ties are uni-directional, toward the large economic players. Thus this coefficient reflects that the largest players top five outgoing trade partners are quite limited. 
+
+In this model significance of democracy index and population also jump up, while the coefficients remain negative.
+
+Finally we will compare a simulated network to out actual network.
+```{r, warning=F}
+sim2 <- simulate(economic_mod2, nsim = 1, seed = 42)
+par(mfrow=c(1, 2))
+plot(sim2,vertex.cex = 2, displaylabels = TRUE, label.pos = 2, boxed.labels = T, 
+      label.border = 0, label.cex = .3, label.pad = 0, arrowhead.cex = .5,
+     main = "Simulation")
+gplot(economic_exchange_network, gmode = "digraph", displaylabels = TRUE, label.pos = 2, 
+      boxed.labels = T, label.border = 0, label.cex = .3, label.pad = 0, 
+      arrowhead.cex = .5, main = "Actual Graph")
+```
+From these graphs it appears are model isn't a bad fit, as Germany, the UK, other central actors remain in the center of the graph.
+
+## Conclusion 
+  In this project we learned a lot about the prominent actors. While examining prominence we developed a theory that some networks favor small countries for prominence, while others favor large countries. Specifically small networks were tied strongly via culture to many other countries, while large countries were tied economically to many other countries. We then applied ERGMs and found that the leading cause of countries cultural similarity was actually matching regions at the node level. Our ERGMs looking at the economic connection indicate that countries with a large population are actually less likely to form economic ties. This flies in the face of our previous theory, but also seems quite dubious. Issues with our ERGMs may have been caused by limiting factors in our data collection, which only include each country's top five trading partners. In future, it would be good to collect data on more trading partners, and consider information about the weights of each trading partner.
+  
+#### Data Sources
+https://en.wikipedia.org/wiki/Democracy_Index
+https://en.wikipedia.org/wiki/Press_Freedom_Index
+https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population
+https://en.wikipedia.org/wiki/United_Nations_geoscheme_for_Europe
+https://correlatesofwar.org/data-sets/formal-alliances/
+http://userpage.fu-berlin.de/~jroose/index_en/main_indexvaluesaz.htm
+https://wits.worldbank.org/countrysnapshot/en/RUShttps://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)

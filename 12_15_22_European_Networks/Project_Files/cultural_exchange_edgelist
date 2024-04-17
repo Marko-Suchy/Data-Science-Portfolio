@@ -1,0 +1,504 @@
+country_1,country_2
+Austria,Cyprus
+Austria,Czech Republic
+Austria,Hungary
+Austria,Poland
+Austria,Portugal
+Austria,Russia
+Austria,Slovakia
+Austria,Slovenia
+Austria,Spain
+Austria,Sweden
+Austria,Switzerland
+Austria,Turkey
+Austria,Ukraine
+Belgium,Austria
+Belgium,Bulgaria
+Belgium,Croatia
+Belgium,Cyprus
+Belgium,Czech Republic
+Belgium,Denmark
+Belgium,Estonia
+Belgium,Finland
+Belgium,France
+Belgium,Germany
+Belgium,Greece
+Belgium,Hungary
+Belgium,Iceland
+Belgium,Ireland
+Belgium,Israel
+Belgium,Italy
+Belgium,Latvia
+Belgium,Luxembourg
+Belgium,Netherlands
+Belgium,Norway
+Belgium,Poland
+Belgium,Portugal
+Belgium,Romania
+Belgium,Russia
+Belgium,Slovakia
+Belgium,Slovenia
+Belgium,Spain
+Belgium,Sweden
+Belgium,Switzerland
+Belgium,Turkey
+Belgium,United Kingdom
+Belgium,Ukraine
+Bulgaria,Austria
+Bulgaria,Croatia
+Bulgaria,Cyprus
+Bulgaria,Czech Republic
+Bulgaria,Denmark
+Bulgaria,Estonia
+Bulgaria,Finland
+Bulgaria,France
+Bulgaria,Germany
+Bulgaria,Greece
+Bulgaria,Hungary
+Bulgaria,Ireland
+Bulgaria,Israel
+Bulgaria,Latvia
+Bulgaria,Netherlands
+Bulgaria,Norway
+Bulgaria,Poland
+Bulgaria,Portugal
+Bulgaria,Russia
+Bulgaria,Slovakia
+Bulgaria,Slovenia
+Bulgaria,Spain
+Bulgaria,Sweden
+Bulgaria,Switzerland
+Bulgaria,Turkey
+Bulgaria,United Kingdom
+Bulgaria,Ukraine
+Croatia,Cyprus
+Croatia,Czech Republic
+Croatia,Hungary
+Croatia,Latvia
+Croatia,Netherlands
+Croatia,Norway
+Croatia,Poland
+Croatia,Portugal
+Croatia,Romania
+Croatia,Russia
+Croatia,Slovakia
+Croatia,Slovenia
+Croatia,Spain
+Croatia,Sweden
+Croatia,Switzerland
+Croatia,Turkey
+Croatia,Ukraine
+Czech Republic,Cyprus
+Czech Republic,Hungary
+Czech Republic,Turkey
+Czech Republic,Ukraine
+Denmark,Austria
+Denmark,Croatia
+Denmark,Cyprus
+Denmark,Czech Republic
+Denmark,Estonia
+Denmark,Finland
+Denmark,France
+Denmark,Germany
+Denmark,Greece
+Denmark,Hungary
+Denmark,Iceland
+Denmark,Ireland
+Denmark,Israel
+Denmark,Italy
+Denmark,Latvia
+Denmark,Luxembourg
+Denmark,Netherlands
+Denmark,Norway
+Denmark,Poland
+Denmark,Portugal
+Denmark,Romania
+Denmark,Russia
+Denmark,Slovakia
+Denmark,Slovenia
+Denmark,Spain
+Denmark,Sweden
+Denmark,Switzerland
+Denmark,Turkey
+Denmark,United Kingdom
+Denmark,Ukraine
+Estonia,Austria
+Estonia,Croatia
+Estonia,Cyprus
+Estonia,Czech Republic
+Estonia,Finland
+Estonia,France
+Estonia,Greece
+Estonia,Hungary
+Estonia,Iceland
+Estonia,Ireland
+Estonia,Israel
+Estonia,Italy
+Estonia,Latvia
+Estonia,Luxembourg
+Estonia,Netherlands
+Estonia,Norway
+Estonia,Poland
+Estonia,Portugal
+Estonia,Romania
+Estonia,Russia
+Estonia,Slovakia
+Estonia,Slovenia
+Estonia,Spain
+Estonia,Sweden
+Estonia,Switzerland
+Estonia,Turkey
+Estonia,United Kingdom
+Estonia,Ukraine
+Finland,Austria
+Finland,Croatia
+Finland,Cyprus
+Finland,Czech Republic
+Finland,France
+Finland,Greece
+Finland,Hungary
+Finland,Iceland
+Finland,Ireland
+Finland,Israel
+Finland,Italy
+Finland,Latvia
+Finland,Luxembourg
+Finland,Netherlands
+Finland,Norway
+Finland,Poland
+Finland,Portugal
+Finland,Romania
+Finland,Russia
+Finland,Slovakia
+Finland,Slovenia
+Finland,Spain
+Finland,Sweden
+Finland,Switzerland
+Finland,Turkey
+Finland,United Kingdom
+Finland,Ukraine
+France,Austria
+France,Croatia
+France,Cyprus
+France,Czech Republic
+France,Greece
+France,Hungary
+France,Iceland
+France,Ireland
+France,Israel
+France,Italy
+France,Latvia
+France,Luxembourg
+France,Netherlands
+France,Norway
+France,Poland
+France,Portugal
+France,Romania
+France,Russia
+France,Slovakia
+France,Slovenia
+France,Spain
+France,Sweden
+France,Switzerland
+France,Turkey
+France,United Kingdom
+France,Ukraine
+Germany,Austria
+Germany,Croatia
+Germany,Cyprus
+Germany,Czech Republic
+Germany,Estonia
+Germany,Finland
+Germany,France
+Germany,Greece
+Germany,Hungary
+Germany,Iceland
+Germany,Ireland
+Germany,Israel
+Germany,Italy
+Germany,Latvia
+Germany,Luxembourg
+Germany,Netherlands
+Germany,Norway
+Germany,Poland
+Germany,Portugal
+Germany,Romania
+Germany,Russia
+Germany,Slovakia
+Germany,Slovenia
+Germany,Spain
+Germany,Sweden
+Germany,Switzerland
+Germany,Turkey
+Germany,United Kingdom
+Germany,Ukraine
+Greece,Austria
+Greece,Croatia
+Greece,Cyprus
+Greece,Czech Republic
+Greece,Hungary
+Greece,Iceland
+Greece,Ireland
+Greece,Israel
+Greece,Italy
+Greece,Latvia
+Greece,Luxembourg
+Greece,Netherlands
+Greece,Norway
+Greece,Poland
+Greece,Portugal
+Greece,Romania
+Greece,Russia
+Greece,Slovakia
+Greece,Slovenia
+Greece,Spain
+Greece,Sweden
+Greece,Switzerland
+Greece,Turkey
+Greece,United Kingdom
+Greece,Ukraine
+Hungary,Cyprus
+Iceland,Austria
+Iceland,Czech Republic
+Iceland,Hungary
+Iceland,Italy
+Iceland,Luxembourg
+Iceland,Netherlands
+Iceland,Norway
+Iceland,Poland
+Iceland,Portugal
+Iceland,Slovakia
+Iceland,Slovenia
+Iceland,Spain
+Iceland,Sweden
+Iceland,Switzerland
+Iceland,Turkey
+Iceland,Ukraine
+Ireland,Austria
+Ireland,Croatia
+Ireland,Cyprus
+Ireland,Czech Republic
+Ireland,Hungary
+Ireland,Iceland
+Ireland,Israel
+Ireland,Italy
+Ireland,Latvia
+Ireland,Luxembourg
+Ireland,Netherlands
+Ireland,Norway
+Ireland,Poland
+Ireland,Portugal
+Ireland,Romania
+Ireland,Russia
+Ireland,Slovakia
+Ireland,Slovenia
+Ireland,Spain
+Ireland,Sweden
+Ireland,Switzerland
+Ireland,Turkey
+Ireland,Ukraine
+Israel,Austria
+Israel,Croatia
+Israel,Cyprus
+Israel,Czech Republic
+Israel,Hungary
+Israel,Latvia
+Israel,Netherlands
+Israel,Norway
+Israel,Poland
+Israel,Portugal
+Israel,Romania
+Israel,Russia
+Israel,Slovakia
+Israel,Slovenia
+Israel,Spain
+Israel,Sweden
+Israel,Switzerland
+Israel,Turkey
+Israel,Ukraine
+Italy,Austria
+Italy,Czech Republic
+Italy,Hungary
+Italy,Luxembourg
+Italy,Netherlands
+Italy,Norway
+Italy,Poland
+Italy,Portugal
+Italy,Slovakia
+Italy,Slovenia
+Italy,Spain
+Italy,Sweden
+Italy,Switzerland
+Italy,Turkey
+Italy,Ukraine
+Latvia,Cyprus
+Latvia,Czech Republic
+Latvia,Hungary
+Latvia,Netherlands
+Latvia,Norway
+Latvia,Poland
+Latvia,Portugal
+Latvia,Romania
+Latvia,Russia
+Latvia,Slovakia
+Latvia,Slovenia
+Latvia,Spain
+Latvia,Sweden
+Latvia,Switzerland
+Latvia,Turkey
+Latvia,Ukraine
+Luxembourg,Austria
+Luxembourg,Czech Republic
+Luxembourg,Hungary
+Luxembourg,Netherlands
+Luxembourg,Norway
+Luxembourg,Poland
+Luxembourg,Portugal
+Luxembourg,Slovakia
+Luxembourg,Slovenia
+Luxembourg,Spain
+Luxembourg,Sweden
+Luxembourg,Switzerland
+Luxembourg,Turkey
+Luxembourg,Ukraine
+Netherlands,Austria
+Netherlands,Cyprus
+Netherlands,Czech Republic
+Netherlands,Hungary
+Netherlands,Norway
+Netherlands,Poland
+Netherlands,Portugal
+Netherlands,Romania
+Netherlands,Russia
+Netherlands,Slovakia
+Netherlands,Slovenia
+Netherlands,Spain
+Netherlands,Sweden
+Netherlands,Switzerland
+Netherlands,Turkey
+Netherlands,Ukraine
+Norway,Austria
+Norway,Cyprus
+Norway,Czech Republic
+Norway,Hungary
+Norway,Poland
+Norway,Portugal
+Norway,Romania
+Norway,Russia
+Norway,Slovakia
+Norway,Slovenia
+Norway,Spain
+Norway,Sweden
+Norway,Switzerland
+Norway,Turkey
+Norway,Ukraine
+Poland,Cyprus
+Poland,Czech Republic
+Poland,Hungary
+Poland,Portugal
+Poland,Romania
+Poland,Russia
+Poland,Slovakia
+Poland,Slovenia
+Poland,Spain
+Poland,Sweden
+Poland,Switzerland
+Poland,Turkey
+Poland,Ukraine
+Portugal,Cyprus
+Portugal,Czech Republic
+Portugal,Hungary
+Portugal,Romania
+Portugal,Russia
+Portugal,Slovakia
+Portugal,Slovenia
+Portugal,Spain
+Portugal,Sweden
+Portugal,Switzerland
+Portugal,Turkey
+Portugal,Ukraine
+Romania,Cyprus
+Romania,Czech Republic
+Romania,Hungary
+Romania,Russia
+Romania,Slovakia
+Romania,Slovenia
+Romania,Spain
+Romania,Sweden
+Romania,Switzerland
+Romania,Turkey
+Romania,Ukraine
+Russia,Cyprus
+Russia,Czech Republic
+Russia,Hungary
+Russia,Slovakia
+Russia,Slovenia
+Russia,Spain
+Russia,Sweden
+Russia,Switzerland
+Russia,Turkey
+Russia,Ukraine
+Slovakia,Cyprus
+Slovakia,Czech Republic
+Slovakia,Hungary
+Slovakia,Slovenia
+Slovakia,Spain
+Slovakia,Turkey
+Slovakia,Ukraine
+Slovenia,Cyprus
+Slovenia,Czech Republic
+Slovenia,Hungary
+Slovenia,Spain
+Slovenia,Turkey
+Slovenia,Ukraine
+Spain,Cyprus
+Spain,Czech Republic
+Spain,Hungary
+Spain,Turkey
+Spain,Ukraine
+Sweden,Cyprus
+Sweden,Czech Republic
+Sweden,Hungary
+Sweden,Slovakia
+Sweden,Slovenia
+Sweden,Spain
+Sweden,Switzerland
+Sweden,Turkey
+Sweden,Ukraine
+Switzerland,Cyprus
+Switzerland,Czech Republic
+Switzerland,Hungary
+Switzerland,Slovakia
+Switzerland,Slovenia
+Switzerland,Spain
+Switzerland,Turkey
+Switzerland,Ukraine
+Turkey,Cyprus
+Turkey,Hungary
+Turkey,Ukraine
+United Kingdom,Austria
+United Kingdom,Croatia
+United Kingdom,Cyprus
+United Kingdom,Czech Republic
+United Kingdom,Hungary
+United Kingdom,Iceland
+United Kingdom,Ireland
+United Kingdom,Israel
+United Kingdom,Italy
+United Kingdom,Latvia
+United Kingdom,Luxembourg
+United Kingdom,Netherlands
+United Kingdom,Norway
+United Kingdom,Poland
+United Kingdom,Portugal
+United Kingdom,Romania
+United Kingdom,Russia
+United Kingdom,Slovakia
+United Kingdom,Slovenia
+United Kingdom,Spain
+United Kingdom,Sweden
+United Kingdom,Switzerland
+United Kingdom,Turkey
+United Kingdom,Ukraine
+Ukraine,Cyprus
+Ukraine,Hungary
