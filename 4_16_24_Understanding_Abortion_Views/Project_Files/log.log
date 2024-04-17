@@ -1,0 +1,483 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\suchym24\Box\Econometrics\DATASETS_FOR_EMPIRICAL_GROUP_PRO
+> JECT_export\General Social Survey 2018 (US)\log.log
+  log type:  text
+ opened on:  16 Apr 2024, 15:28:02
+
+. 
+. //get data
+. use "GSS2018_only2018vars.dta"
+
+. 
+. //response variables: question abany
+. //summarize abany
+. 
+. //Explanatory Variables: Education Level, Marital Status, Gender, Religion, Ag
+> e, Rural/Urban
+. /*
+> summarize degree if abany == 1 | abany == 2 //education! This will need to be 
+> turned into a dummy var but its fine for now.
+> summarize marital if abany == 1 | abany == 2 //will need to be coded as dummy
+> summarize sex if abany == 1 | abany == 2 
+> summarize relig if abany == 1 | abany == 2 
+> summarize age if abany == 1 | abany == 2  //numerical. nice.
+> summarize region if abany == 1 | abany == 2 
+> */
+. 
+. 
+. //Now make a new dataset that only looks at relevants columns, and breaks them
+>  out into dummys if needed
+. keep abany degree marital sex relig age region res16
+
+. keep if abany == 1 | abany == 2
+(824 observations deleted)
+
+. 
+. 
+. tabulate abany, generate(abany_dummy_)
+
+abortion if |
+woman wants |
+    for any |
+     reason |      Freq.     Percent        Cum.
+------------+-----------------------------------
+        yes |        764       50.13       50.13
+         no |        760       49.87      100.00
+------------+-----------------------------------
+      Total |      1,524      100.00
+
+. tabulate degree, generate(degree_dummy_)
+
+   r's highest |
+        degree |      Freq.     Percent        Cum.
+---------------+-----------------------------------
+lt high school |        159       10.43       10.43
+   high school |        771       50.59       61.02
+junior college |        123        8.07       69.09
+      bachelor |        309       20.28       89.37
+      graduate |        162       10.63      100.00
+---------------+-----------------------------------
+         Total |      1,524      100.00
+
+. tabulate sex, generate(sex_dummy_)
+
+respondents |
+        sex |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       male |        680       44.62       44.62
+     female |        844       55.38      100.00
+------------+-----------------------------------
+      Total |      1,524      100.00
+
+. tabulate relig, generate(relig_dummy_)
+
+          r's religious |
+             preference |      Freq.     Percent        Cum.
+------------------------+-----------------------------------
+             protestant |        742       49.04       49.04
+               catholic |        303       20.03       69.07
+                 jewish |         25        1.65       70.72
+                   none |        371       24.52       95.24
+                  other |         22        1.45       96.70
+               buddhism |         11        0.73       97.42
+               hinduism |          5        0.33       97.75
+           moslem/islam |          9        0.59       98.35
+     orthodox-christian |          6        0.40       98.74
+              christian |         19        1.26      100.00
+------------------------+-----------------------------------
+                  Total |      1,513      100.00
+
+. tabulate region, generate(region_dummy_)
+
+      region of |
+      interview |      Freq.     Percent        Cum.
+----------------+-----------------------------------
+    new england |         79        5.18        5.18
+middle atlantic |        132        8.66       13.85
+e. nor. central |        255       16.73       30.58
+w. nor. central |         80        5.25       35.83
+ south atlantic |        348       22.83       58.66
+e. sou. central |        103        6.76       65.42
+w. sou. central |        180       11.81       77.23
+       mountain |        121        7.94       85.17
+        pacific |        226       14.83      100.00
+----------------+-----------------------------------
+          Total |      1,524      100.00
+
+. tabulate marital, generate(marital_dummy_)
+
+      marital |
+       status |      Freq.     Percent        Cum.
+--------------+-----------------------------------
+      married |        638       41.92       41.92
+      widowed |        133        8.74       50.66
+     divorced |        251       16.49       67.15
+    separated |         55        3.61       70.76
+never married |        445       29.24      100.00
+--------------+-----------------------------------
+        Total |      1,522      100.00
+
+. tabulate res16, generate(res16_dummy_)
+
+  type of place |
+  lived in when |
+     16 yrs old |      Freq.     Percent        Cum.
+----------------+-----------------------------------
+country,nonfarm |        167       10.96       10.96
+           farm |         90        5.91       16.86
+  town lt 50000 |        511       33.53       50.39
+50000 to 250000 |        288       18.90       69.29
+big-city suburb |        201       13.19       82.48
+ city gt 250000 |        267       17.52      100.00
+----------------+-----------------------------------
+          Total |      1,524      100.00
+
+. 
+. //get rid of non-dummys
+. keep age abany_dummy_1 abany_dummy_2 degree_dummy_1 degree_dummy_2 degree_dumm
+> y_3 degree_dummy_4 degree_dummy_5 sex_dummy_1 sex_dummy_2 relig_dummy_1 relig_
+> dummy_2 relig_dummy_3 relig_dummy_4 relig_dummy_5 relig_dummy_6 relig_dummy_7 
+> relig_dummy_8 relig_dummy_9 relig_dummy_10 region_dummy_1 region_dummy_2 regio
+> n_dummy_3 region_dummy_4 region_dummy_5 region_dummy_6 region_dummy_7 region_d
+> ummy_8 region_dummy_9 marital_dummy_1 marital_dummy_2 marital_dummy_3 marital_
+> dummy_4 marital_dummy_5 res16_dummy_1 res16_dummy_2 res16_dummy_3 res16_dummy_
+> 4 res16_dummy_5 res16_dummy_6
+
+. 
+. //rename dummys
+. rename abany_dummy_1 abYes
+
+. rename abany_dummy_2 abNo
+
+. 
+. rename degree_dummy_1 LessThanHS
+
+. rename degree_dummy_2 HS
+
+. rename degree_dummy_3 Assoc
+
+. rename degree_dummy_4 Bach
+
+. rename degree_dummy_5 Grad
+
+. rename sex_dummy_1 Male
+
+. rename sex_dummy_2 Female
+
+. rename relig_dummy_1 Protestant
+
+. rename relig_dummy_2 Catholic
+
+. rename relig_dummy_3 Jewish
+
+. rename relig_dummy_4 None
+
+. rename relig_dummy_5 Other
+
+. rename relig_dummy_6 Buddhism
+
+. rename relig_dummy_7 Hinduism
+
+. rename relig_dummy_8 MuslimOrIslam
+
+. rename relig_dummy_9 OrthodoxChristian
+
+. rename relig_dummy_10 Christian
+
+. rename region_dummy_1 NewEngland
+
+. rename region_dummy_2 MiddleAtlantic
+
+. rename region_dummy_3 EastNorthCentral
+
+. rename region_dummy_4 WestNorthCentral
+
+. rename region_dummy_5 SouthAtlantic
+
+. rename region_dummy_6 EastSouthCentral
+
+. rename region_dummy_7 WestSouthCentral
+
+. rename region_dummy_8 Mountain
+
+. rename region_dummy_9 Pacific
+
+. rename marital_dummy_1 Married
+
+. rename marital_dummy_2 Widowed
+
+. rename marital_dummy_3 Divorced
+
+. rename marital_dummy_4 Separated
+
+. rename marital_dummy_5 NeverMarried
+
+. rename res16_dummy_1 Country_Nonfarm
+
+. rename res16_dummy_2 Farm
+
+. rename res16_dummy_3 Town_Lt_FiftyK
+
+. rename res16_dummy_4 FiftyK_to_TwoFiftyK
+
+. rename res16_dummy_5 Big_City_Suburb
+
+. rename res16_dummy_6 City_Gt_TwoFiftyK
+
+. 
+. //summarize stuff
+. summarize abYes
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+       abYes |      1,524    .5013123    .5001624          0          1
+
+. summarize abNo
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        abNo |      1,524    .4986877    .5001624          0          1
+
+. sum LessThanHS
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+  LessThanHS |      1,524    .1043307    .3057894          0          1
+
+. sum HS
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+          HS |      1,524    .5059055    .5001292          0          1
+
+. sum Assoc
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+       Assoc |      1,524    .0807087    .2724766          0          1
+
+. sum Bach
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        Bach |      1,524    .2027559    .4021841          0          1
+
+. sum Grad
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        Grad |      1,524    .1062992    .3083214          0          1
+
+. sum Male
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        Male |      1,524    .4461942    .4972597          0          1
+
+. sum Female
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      Female |      1,524    .5538058    .4972597          0          1
+
+. sum Protestant
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+  Protestant |      1,513    .4904164    .5000734          0          1
+
+. sum Catholic
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    Catholic |      1,513    .2002644    .4003305          0          1
+
+. sum Jewish
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      Jewish |      1,513    .0165235    .1275194          0          1
+
+. sum None
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        None |      1,513    .2452082    .4303528          0          1
+
+. sum Other
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+       Other |      1,513    .0145406    .1197443          0          1
+
+. sum Buddhism
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    Buddhism |      1,513    .0072703    .0849838          0          1
+
+. sum Hinduism
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    Hinduism |      1,513    .0033047    .0574104          0          1
+
+. sum MuslimOrIslam
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+MuslimOrIs~m |      1,513    .0059484    .0769219          0          1
+
+. sum OrthodoxChristian
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+OrthodoxCh~n |      1,513    .0039656     .062869          0          1
+
+. sum Christian
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+   Christian |      1,513    .0125578    .1113927          0          1
+
+. sum NewEngland
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+  NewEngland |      1,524    .0518373    .2217711          0          1
+
+. sum MiddleAtlantic
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+MiddleAtla~c |      1,524    .0866142    .2813612          0          1
+
+. sum EastNorthCentral
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+EastNorthC~l |      1,524    .1673228    .3733864          0          1
+
+. sum WestNorthCentral
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+WestNorthC~l |      1,524    .0524934    .2230931          0          1
+
+. sum SouthAtlantic
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+SouthAtlan~c |      1,524    .2283465    .4199048          0          1
+
+. sum EastSouthCentral
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+EastSouthC~l |      1,524    .0675853    .2511153          0          1
+
+. sum WestSouthCentral
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+WestSouthC~l |      1,524    .1181102    .3228445          0          1
+
+. sum Mountain
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    Mountain |      1,524    .0793963    .2704451          0          1
+
+. sum Pacific
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     Pacific |      1,524     .148294    .3555078          0          1
+
+. sum age
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         age |      1,522     48.1025    18.22267         18         89
+
+. sum Married
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     Married |      1,522    .4191853    .4935879          0          1
+
+. sum Widowed
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     Widowed |      1,522     .087385    .2824913          0          1
+
+. sum Divorced
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    Divorced |      1,522    .1649146    .3712254          0          1
+
+. sum Separated
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+   Separated |      1,522    .0361367    .1866915          0          1
+
+. sum NeverMarried
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+NeverMarried |      1,522    .2923784    .4550047          0          1
+
+. sum Country_Nonfarm
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+Country_No~m |      1,524    .1095801    .3124681          0          1
+
+. sum Farm
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+        Farm |      1,524    .0590551    .2358052          0          1
+
+. sum Town_Lt_FiftyK
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+Town_Lt_Fi~K |      1,524    .3353018    .4722508          0          1
+
+. sum FiftyK_to_TwoFiftyK
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+FiftyK_to_~K |      1,524    .1889764    .3916184          0          1
+
+. sum Big_City_Suburb
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+Big_City_S~b |      1,524    .1318898     .338482          0          1
+
+. sum City_Gt_TwoFiftyK
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+City_Gt_Tw~K |      1,524    .1751969    .3802602          0          1
+
+. 
+. 
+. //save the data!
+. save "regression_data.dta", replace 
+file regression_data.dta saved
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\suchym24\Box\Econometrics\DATASETS_FOR_EMPIRICAL_GROUP_PRO
+> JECT_export\General Social Survey 2018 (US)\log.log
+  log type:  text
+ closed on:  16 Apr 2024, 15:28:03
+--------------------------------------------------------------------------------
